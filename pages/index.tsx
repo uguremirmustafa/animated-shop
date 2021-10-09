@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout';
 
 interface Props {}
 
-const Home = (props: Props) => {
+const Home = ({}: Props) => {
   return (
     <Layout>
       <ProductCard id={1} />

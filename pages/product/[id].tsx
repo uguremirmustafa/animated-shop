@@ -2,7 +2,7 @@ import React from 'react';
 
 interface Props {}
 
-const ProductPage = (props: Props) => {
+const ProductPage = ({}: Props) => {
   return (
     <div>
       <h2>details</h2>
