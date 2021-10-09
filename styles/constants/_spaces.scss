@@ -1,0 +1,90 @@
+$xxs: 0.125rem;
+$xs: 0.25rem;
+$sm: 0.5rem;
+$md: 1rem;
+$lg: 1.5rem;
+$xl: 2rem;
+$xxl: 3rem;
+$xxxl: 4rem;
+
+$spaces: (
+  1: 0.125rem,
+  2: 0.25rem,
+  3: 0.5rem,
+  4: 1rem,
+  5: 1.5rem,
+  6: 2rem,
+  7: 3rem,
+  8: 4rem,
+);
+
+@each $space, $value in $spaces {
+  .mx-#{$space} {
+    margin-inline: $value;
+  }
+}
+@each $space, $value in $spaces {
+  .my-#{$space} {
+    margin-block: $value;
+  }
+}
+@each $space, $value in $spaces {
+  .mt-#{$space} {
+    margin-top: $value;
+  }
+}
+@each $space, $value in $spaces {
+  .mb-#{$space} {
+    margin-bottom: $value;
+  }
+}
+@each $space, $value in $spaces {
+  .ml-#{$space} {
+    margin-left: $value;
+  }
+}
+@each $space, $value in $spaces {
+  .mr-#{$space} {
+    margin-right: $value;
+  }
+}
+@each $space, $value in $spaces {
+  .m-#{$space} {
+    margin: $value;
+  }
+}
+@each $space, $value in $spaces {
+  .px-#{$space} {
+    padding-inline: $value;
+  }
+}
+@each $space, $value in $spaces {
+  .py-#{$space} {
+    padding-block: $value;
+  }
+}
+@each $space, $value in $spaces {
+  .pt-#{$space} {
+    padding-top: $value;
+  }
+}
+@each $space, $value in $spaces {
+  .pb-#{$space} {
+    padding-bottom: $value;
+  }
+}
+@each $space, $value in $spaces {
+  .pl-#{$space} {
+    padding-left: $value;
+  }
+}
+@each $space, $value in $spaces {
+  .pr-#{$space} {
+    padding-right: $value;
+  }
+}
+@each $space, $value in $spaces {
+  .p-#{$space} {
+    padding: $value;
+  }
+}

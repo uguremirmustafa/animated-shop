@@ -1,0 +1,24 @@
+@use '../constants/mixins' as *;
+@use '../constants/spaces' as *;
+@use '../constants/colors' as *;
+.navbar {
+  @include shadow(0.2);
+  // background-color: $gray-100;
+  .inner-navbar {
+    @include flex-bw;
+    padding: $md;
+    height: $lg;
+    max-width: 1100px;
+    margin: auto;
+    @include md {
+      height: $xl;
+    }
+    @include lg {
+      height: $xxl;
+    }
+    .left .logo a {
+      font-family: 'Righteous', serif;
+      font-size: 1.3rem;
+    }
+  }
+}
