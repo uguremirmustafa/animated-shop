@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout';
 
 interface Props {}
 
-const Cart = (props: Props) => {
+const Cart = ({}: Props) => {
   return (
     <Layout>
       <div className="cart">

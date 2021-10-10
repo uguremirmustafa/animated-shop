@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 interface Props {}
 
-const Navbar = (props: Props) => {
+const Navbar = ({}: Props) => {
   return (
     <nav className="navbar">
       <div className="inner-navbar">
