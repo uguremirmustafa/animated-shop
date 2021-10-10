@@ -116,6 +116,13 @@
       }
     }
   }
+  .images-wrapper {
+    width: 100%;
+    overflow: hidden;
+  }
+  .images {
+    display: flex;
+  }
   .img-wrapper {
     position: relative;
     width: 100%;
