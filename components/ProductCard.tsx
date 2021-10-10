@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Bike } from '../pages';
+import { LightenDarkenColor } from '../utils/lightenDarkenColor';
 interface Props {
-  id: number;
+  bike: Bike;
 }
 
-const ProductCard = ({ id }: Props) => {
-  const items = [
-    { index: 0, color: '#FF6666', sizes: ['sm', 'md', 'xxl'] },
-    { index: 1, color: '#66C2FF', sizes: ['xs', 'md'] },
-    { index: 2, color: '#1E2020', sizes: ['xs', 'sm', 'md', 'lg'] },
-  ];
-  const [active, setActive] = useState(items[0]);
+const ProductCard = ({ bike }: Props) => {
+  const [active, setActive] = useState(bike.variants[0]);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+  const lighterColor = LightenDarkenColor(active.color, 70);
+  const textStyle = (withShadow: boolean, shadow: number) => ({
+    textShadow: withShadow
+      ? `${shadow}px ${shadow}px ${LightenDarkenColor(active.color, 20)}`
+      : `${shadow}px ${shadow}px ${LightenDarkenColor(active.color, 20)}`,
+    color: LightenDarkenColor(active.color, 300),
+  });
   return (
-    <div className="product-card">
+    <div className="product-card" style={{ backgroundColor: LightenDarkenColor(active.color, 10) }}>
       <motion.div
         animate={{
           x: [50, -100, 150, 200, -60],
@@ -25,34 +33,53 @@ const ProductCard = ({ id }: Props) => {
             repeatType: 'reverse',
           },
         }}
+        style={{ backgroundColor: `${lighterColor}30` }}
+        //30 is for tranparency, read more here: https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
         className="blur"
       ></motion.div>
-      <h2>S-WORKS</h2>
+      <h2 style={{ color: lighterColor }}>{bike.brand}</h2>
       <div className="top">
-        <div className="type">aero bike &#183; carbon</div>
-        <p className="model-name">venge</p>
+        <div
+          className="type"
+          style={{
+            color: LightenDarkenColor(active.color, 300),
+          }}
+        >
+          {bike.features[0]} &#183; {bike.features[1]}
+        </div>
+        <p className="model-name" style={textStyle(true, 8)}>
+          {bike.model}
+        </p>
       </div>
       <AnimatePresence exitBeforeEnter>
         <motion.div
           key={active.index}
-          initial={{ x: -300, opacity: 0 }}
-          animate={{ x: 0, opacity: 1, transition: { duration: 0.4 } }}
-          exit={{ x: 300, opacity: 0, transition: { duration: 0.4 } }}
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={
+            loaded
+              ? { x: 0, opacity: 1, scale: 1, transition: { duration: 0.2, ease: 'easeInOut' } }
+              : { opacity: 0 }
+          }
+          exit={{ x: 300, opacity: 0, transition: { duration: 0.3 } }}
           className="img-wrapper"
         >
           <Image
-            src={`/images/sworks${active.index + 1}.jpg`}
+            src={active.src}
+            priority={true}
             layout="fill"
             objectFit="cover"
             alt="sworks bike"
+            onLoad={() => {
+              setLoaded(true);
+            }}
           />
         </motion.div>
       </AnimatePresence>
       <div className="mid">
-        <div className="colors">
+        <div className="colors" style={textStyle(false, 0)}>
           colors
           <div className="options">
-            {items.map((item) => {
+            {bike.variants.map((item) => {
               let isActive = active.index === item.index;
               return (
                 <span
@@ -61,7 +88,9 @@ const ProductCard = ({ id }: Props) => {
                     backgroundColor: item.color,
                     border: !isActive ? `2px solid ${item.color}` : `2px solid gray`,
                   }}
-                  onClick={() => setActive(items[item.index])}
+                  onClick={() => {
+                    setActive(bike.variants[item.index]), setLoaded(!loaded);
+                  }}
                 ></span>
               );
             })}
@@ -74,6 +103,7 @@ const ProductCard = ({ id }: Props) => {
             exit={{ opacity: 0, transition: { duration: 0.3 } }}
             initial={{ opacity: 0 }}
             className="sizes"
+            style={textStyle(false, 0)}
           >
             sizes
             <div className="options">
@@ -85,16 +115,28 @@ const ProductCard = ({ id }: Props) => {
         </AnimatePresence>
 
         <div className="price">
-          <span className="old">
-            $2299
-            <span className="cross-line"></span>
+          <span className="old" style={textStyle(false, 0)}>
+            {bike.price.currency}
+            {bike.price.old}
+            <span className="cross-line" style={{ backgroundColor: lighterColor }}></span>
           </span>
-          <span className="current">$1799</span>
+          <span className="current" style={textStyle(false, 0)}>
+            {bike.price.currency}
+            {bike.price.current}
+          </span>
         </div>
       </div>
       <div className="bottom">
-        <Link href={`/product/${id}`} passHref>
-          <motion.button whileHover={{ scale: [1, 0.8, 2, 1] }} className="btn">
+        <Link href={`/product/${bike.id}`} passHref>
+          <motion.button
+            whileHover={{ scale: [1, 0.8, 2, 1] }}
+            className="btn"
+            style={{
+              backgroundColor: LightenDarkenColor(active.color, 10),
+              borderColor: 'white',
+              color: 'white',
+            }}
+          >
             see details
           </motion.button>
         </Link>

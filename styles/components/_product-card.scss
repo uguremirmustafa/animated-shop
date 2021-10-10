@@ -3,10 +3,11 @@
 @use '../constants/spaces' as *;
 
 .product-card {
-  background-color: $orange-500;
   border-radius: $xs;
-  margin: $md;
   padding: $md;
+  @include md {
+    padding: $lg;
+  }
   @include shadow(6);
   position: relative;
   overflow: hidden;
@@ -18,7 +19,6 @@
     left: 0;
     z-index: 1;
     border-radius: 50%;
-    background: rgba($orange-300, 0.4);
     backdrop-filter: blur(1px);
   }
   .top {
@@ -49,7 +49,6 @@
   p {
     font-size: 3rem;
     color: $orange-100;
-    text-shadow: 3px 3px $orange-400;
   }
   .model-name {
     margin-bottom: $md;
@@ -57,12 +56,12 @@
   }
   .mid {
     margin: $lg 0;
+    padding: $sm $md;
+    background-color: rgba(white, 0.3);
+    border-radius: $xs;
     @include flex-bw;
-    .colors,
-    .sizes {
-      font-size: 0.8rem;
+    .colors {
       font-family: 'Righteous', serif;
-      text-shadow: 1px 1px $gray-100;
       .options {
         margin-top: $sm;
         display: flex;
@@ -81,6 +80,13 @@
     }
     .sizes {
       text-align: center;
+      font-family: 'Righteous', serif;
+      .options {
+        margin-top: $sm;
+        display: flex;
+        gap: 0.3rem;
+        font-size: 0.8rem;
+      }
     }
     .price {
       display: flex;
@@ -95,8 +101,6 @@
         font-size: 0.8rem;
         text-align: center;
         position: relative;
-        text-shadow: 1px 1px $orange-300;
-
         .cross-line {
           position: absolute;
           width: 100%;
@@ -109,29 +113,19 @@
       }
       .current {
         font-size: 1.4rem;
-        text-shadow: 2px 2px $orange-200;
       }
     }
   }
   .img-wrapper {
     position: relative;
     width: 100%;
-    max-width: 440px;
-    height: 260px;
+    max-width: 500px;
+    height: 200px;
     @include shadow(3);
     border-radius: $xs;
     overflow: hidden;
     transition: transform ease-in-out 0.4s;
     z-index: 1;
-
-    .filter {
-      position: absolute;
-      width: 3rem;
-      height: 3rem;
-      border-radius: 50%;
-      background-color: rgba($gray-200, 0.2);
-      backdrop-filter: blur(2px);
-    }
   }
 
   .dots {

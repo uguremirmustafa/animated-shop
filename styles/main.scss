@@ -2,6 +2,7 @@
 @use './constants' as *;
 @use './layout';
 @use './components';
+@use './pages';
 html {
   font-family: 'Poppins', sans-serif;
 }
