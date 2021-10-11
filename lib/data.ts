@@ -15,6 +15,7 @@ export type Bike = {
   };
   features: string[];
   variants: BikeVariant[];
+  desc: string;
 };
 export const bikes: Bike[] = [
   {
@@ -28,6 +29,7 @@ export const bikes: Bike[] = [
       { index: 1, color: '#E394CC', src: '/images/sworks2.jpg', sizes: ['sm', 'md', 'xxl'] },
       { index: 2, color: '#5FD4D5', src: '/images/sworks3.jpg', sizes: ['xs', 'md'] },
     ],
+    desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, reprehenderit essereiciendis minima quo harum! Lorem ipsum, dolor sit amet consectetur adipisicing.Lorem ipsum dolor sit.',
   },
   {
     id: 2,
@@ -40,6 +42,7 @@ export const bikes: Bike[] = [
       { index: 1, color: '#4E545B', src: '/images/canyon2.jpg', sizes: ['xs', 'sm', 'md', 'lg'] },
       { index: 2, color: '#F2384C', src: '/images/canyon3.jpg', sizes: ['xs', 'md'] },
     ],
+    desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, reprehenderit essereiciendis minima quo harum! Lorem ipsum, dolor sit amet consectetur adipisicing.Lorem ipsum dolor sit.',
   },
   {
     id: 3,
@@ -57,6 +60,7 @@ export const bikes: Bike[] = [
       },
       { index: 2, color: '#AF6D14', src: '/images/lapierre3.jpg', sizes: ['xs', 'md'] },
     ],
+    desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, reprehenderit essereiciendis minima quo harum! Lorem ipsum, dolor sit amet consectetur adipisicing.Lorem ipsum dolor sit.',
   },
   {
     id: 4,
@@ -74,5 +78,6 @@ export const bikes: Bike[] = [
       },
       { index: 2, color: '#727980', src: '/images/cervelo3.jpg', sizes: ['xs', 'md'] },
     ],
+    desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, reprehenderit essereiciendis minima quo harum! Lorem ipsum, dolor sit amet consectetur adipisicing.Lorem ipsum dolor sit.',
   },
 ];

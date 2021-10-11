@@ -4,7 +4,7 @@
 @use './components';
 @use './pages';
 html {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Righteous', sans-serif;
 }
 body {
   overflow-x: hidden;
@@ -16,4 +16,7 @@ a {
   &:hover {
     color: $gray-700;
   }
+}
+button {
+  font-family: 'Righteous', sans-serif;
 }

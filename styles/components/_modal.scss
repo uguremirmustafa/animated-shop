@@ -1,0 +1,64 @@
+@use '../constants/spaces' as *;
+@use '../constants/colors' as *;
+@use '../constants/mixins' as *;
+
+.modal {
+  border-radius: $xs;
+  overflow: hidden;
+  position: absolute;
+  top: 30%;
+  left: 20px;
+  right: 20px;
+  background-color: $gray-100;
+  .title {
+    font-family: 'Righteous', sans-serif;
+    padding: $md;
+    @include flex-bw;
+    h3 {
+      color: white;
+    }
+    button {
+      border-radius: $xs;
+      display: grid;
+      place-items: center;
+      padding: 0.1rem;
+      border: 1.5px solid white;
+    }
+  }
+  .content {
+    padding: $md;
+    .message {
+      margin-bottom: $md;
+    }
+    .bike {
+      @include flex-bw;
+      h4 {
+        font-family: 'Righteous';
+      }
+      .img-wrapper {
+        position: relative;
+        height: 60px;
+        width: 100px;
+        border-radius: $xs;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.overlay {
+  z-index: 30;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($gray-900, 0.8);
+}
+.go-to-cart-btn {
+  border: 1px solid $gray-300;
+  border-radius: $xs;
+  padding: $xs $sm;
+  margin: $md 0;
+  float: right;
+}

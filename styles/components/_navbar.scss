@@ -6,6 +6,7 @@
   background-color: $gray-100;
   position: fixed;
   width: 100%;
+  z-index: 10;
   .inner-navbar {
     @include flex-bw;
     padding: $md;
@@ -21,6 +22,31 @@
     .left .logo a {
       font-family: 'Righteous', serif;
       font-size: 1.3rem;
+    }
+    .right {
+      .cart-btn {
+        background-color: transparent;
+        border: none;
+        border-radius: $sm;
+        cursor: pointer;
+        position: relative;
+        span {
+          background-color: white;
+          border-radius: $xs;
+          border: 1.4px solid $gray-900;
+          font-size: 0.5rem;
+          font-weight: 600;
+          font-family: 'Poppins', sans-serif;
+          color: $gray-900;
+          width: 0.7rem;
+          height: 0.7rem;
+          display: grid;
+          place-items: center;
+          position: absolute;
+          right: -5px;
+          top: -5px;
+        }
+      }
     }
   }
 }

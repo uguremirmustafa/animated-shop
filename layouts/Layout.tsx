@@ -1,9 +1,9 @@
-import React, { ReactChild } from 'react';
+import React, { ReactNode } from 'react';
 import Navbar from '../components/Navbar';
 import Container from './Container';
 
 interface Props {
-  children: ReactChild;
+  children: ReactNode;
 }
 
 const Layout = ({ children }: Props) => {

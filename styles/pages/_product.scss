@@ -40,7 +40,6 @@
           border-radius: $xs;
         }
       }
-
       .current {
         font-size: $lg;
       }
@@ -67,7 +66,7 @@
       .options {
         margin-top: $sm;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(4, 1fr);
         gap: $sm;
         .size {
           display: block;
@@ -79,6 +78,7 @@
           padding: $xs;
           text-align: center;
           background-color: white;
+          cursor: pointer;
         }
       }
     }
@@ -94,6 +94,7 @@
           border-radius: $xs;
           width: $md;
           height: $md;
+          cursor: pointer;
         }
       }
     }
@@ -133,10 +134,21 @@
     }
   }
 }
-.divider {
-  margin: $xs 0;
-  background-color: $gray-200;
-  height: 3px;
-  width: 100%;
-  border-radius: $sm;
+.Modal {
+  position: absolute;
+  top: 30%;
+  left: 40px;
+  right: 40px;
+  padding: $md;
+  background-color: $gray-100;
+}
+
+.Overlay {
+  z-index: 30;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($gray-900, 0.8);
 }

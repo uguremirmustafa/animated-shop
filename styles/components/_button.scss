@@ -1,0 +1,12 @@
+@use '../constants/colors' as *;
+@use '../constants/spaces' as *;
+@use '../constants/mixins' as *;
+.btn {
+  border-width: 2px;
+  border-style: solid;
+  border-color: $gray-900;
+  padding: $sm $md;
+  border-radius: $sm;
+  display: grid;
+  place-items: center;
+}

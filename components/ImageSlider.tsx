@@ -71,7 +71,7 @@ const ImageSlider = ({ variants, active, setActive }: Props) => {
             >
               <Image
                 src={item.src}
-                priority={true}
+                // priority={true}
                 layout="fill"
                 objectFit="cover"
                 alt="bike image for the product"

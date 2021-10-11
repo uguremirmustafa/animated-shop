@@ -13,12 +13,15 @@
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-modal": "^3.14.3",
     "react-swipeable": "^6.2.0",
+    "react-use-cart": "^1.11.2",
     "sass": "^1.42.1",
     "sharp": "^0.29.1"
   },
   "devDependencies": {
     "@types/react": "^17.0.27",
+    "@types/react-modal": "^3.12.1",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "typescript": "^4.4.3"

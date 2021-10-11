@@ -1,0 +1,9 @@
+@use '../constants/spaces' as *;
+@use '../constants/colors' as *;
+.divider {
+  margin: $xs 0;
+  background-color: $gray-200;
+  height: 3px;
+  width: 100%;
+  border-radius: $sm;
+}

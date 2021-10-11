@@ -11,11 +11,10 @@ interface Props {
 const ProductCard = ({ bike }: Props) => {
   const [active, setActive] = useState(bike.variants[0]);
   const [loaded, setLoaded] = useState(false);
-  const [firstLoad, setFirstLoad] = useState(true);
 
-  useEffect(() => {
-    setFirstLoad(false);
-  }, [active.index]);
+  // useEffect(() => {
+  //   setFirstLoad(false);
+  // }, [active.index]);
   useEffect(() => {
     setLoaded(true);
   }, []);

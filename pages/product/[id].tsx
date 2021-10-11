@@ -1,29 +1,76 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../../layouts/Layout';
 import { Bike, bikes } from '../../lib/data';
 import { motion } from 'framer-motion';
 import BreadCrumb, { BreadCrumbItem } from '../../components/BreadCrumb';
-
 import ImageSlider from '../../components/ImageSlider';
 import Heart from '../../components/svgs/heart';
 import Share from '../../components/svgs/share';
 import Truck from '../../components/svgs/truck';
 import Timer from '../../components/svgs/timer';
-import { LightenDarkenColor } from '../../utils/lightenDarkenColor';
+import Divider from '../../components/Divider';
+import { useCart } from 'react-use-cart';
+import ModalWindow, { ModalContent } from '../../components/ModalWindow';
+
 interface Props {
   bike: Bike;
 }
 
 const ProductPage = ({ bike }: Props) => {
+  const { addItem } = useCart();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [active, setActive] = useState(bike.variants[0]);
+  const [modalContent, setModalContent] = useState<ModalContent>({
+    title: '',
+    message: '',
+    type: 'success',
+  });
   const breadCrumbData: BreadCrumbItem[] = [
     { text: 'bikes', link: '/' },
     { text: bike.brand },
     { text: bike.model, link: `/product/${bike.id}` },
   ];
 
+  const [selectedSize, setSelectedSize] = useState('');
+  useEffect(() => {
+    setSelectedSize('');
+  }, [active.index]);
+  const addItemToCart = () => {
+    if (selectedSize === '') {
+      setModalContent({
+        title: 'Error happened!',
+        message: 'please select the size',
+        type: 'error',
+      });
+      setModalIsOpen(true);
+      return;
+    }
+    addItem({
+      id: `${bike.id.toString()}-${active.index}-${active.color}-${active.src}`,
+      price: bike.price.current,
+      size: selectedSize,
+      color: active.color,
+      img: active.src,
+      title: `${bike.brand} / ${bike.model}`,
+    });
+    setModalContent({
+      title: 'Product added successfully!',
+      message: `Product added to the cart`,
+      type: 'success',
+      product: bike,
+      variant: active,
+    });
+    setModalIsOpen(true);
+    setSelectedSize('');
+  };
+
   return (
     <Layout>
+      <ModalWindow
+        modalContent={modalContent}
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+      />
       <motion.div className="product">
         <BreadCrumb items={breadCrumbData} seperator="/" />
         <ImageSlider variants={bike.variants} active={active} setActive={setActive} />
@@ -32,8 +79,8 @@ const ProductPage = ({ bike }: Props) => {
             {bike.brand} / {bike.model}
           </h2>
           <div className="actions">
-            <Share size={19} />
-            <Heart size={22} />
+            <Share size={19} color={active.color} />
+            <Heart size={22} color={active.color} />
           </div>
         </div>
         <div className="mid">
@@ -42,7 +89,7 @@ const ProductPage = ({ bike }: Props) => {
               {bike.price.currency}
               {bike.price.old}
             </div>
-            <div className="divider"></div>
+            <Divider color={active.color} />
             <div className="current">
               {bike.price.currency}
               {bike.price.current}
@@ -51,11 +98,11 @@ const ProductPage = ({ bike }: Props) => {
           <div className="stickers">
             <div>
               free shipping
-              <Truck size={17} />
+              <Truck size={17} color={active.color} />
             </div>
             <div>
               running out of stocks
-              <Timer size={17} />
+              <Timer size={17} color={active.color} />
             </div>
           </div>
         </div>
@@ -63,28 +110,46 @@ const ProductPage = ({ bike }: Props) => {
         <div className="lower-mid">
           <div className="sizes">
             sizes
-            <div className="divider"></div>
+            <Divider color={active.color} />
             <div className="options">
               {active.sizes.map((size, index) => {
                 return (
-                  <button key={index} className="size">
+                  <motion.button
+                    whileTap={{ scale: [1, 0.8, 2, 1] }}
+                    whileHover={{
+                      y: -2,
+                    }}
+                    key={index}
+                    className="size"
+                    onClick={() => setSelectedSize(size)}
+                    style={
+                      size === selectedSize
+                        ? {
+                            backgroundColor: active.color,
+                            color: 'white',
+                          }
+                        : { backgroundColor: 'white', color: 'black' }
+                    }
+                  >
                     {size}
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
           </div>
           <div className="colors">
             colors
-            <div className="divider"></div>
+            <Divider color={active.color} />
             <div className="options">
               {bike.variants.map((variant, index) => {
                 return (
-                  <div
+                  <motion.div
+                    whileTap={{ scale: [1, 0.8, 2, 1] }}
                     key={index}
                     className="color"
                     style={{ backgroundColor: `${variant.color}`, border: `2px solid gray` }}
-                  ></div>
+                    onClick={() => setActive(bike.variants[index])}
+                  />
                 );
               })}
             </div>
@@ -92,18 +157,19 @@ const ProductPage = ({ bike }: Props) => {
         </div>
         <div className="details">
           details
-          <div className="divider"></div>
-          <div className="text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, reprehenderit esse
-            reiciendis minima quo harum! Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Lorem ipsum dolor sit.
-          </div>
+          <Divider color={active.color} />
+          <div className="text">{bike.desc}</div>
         </div>
-        <div className="order">
-          <button className="order-btn" style={{ backgroundColor: active.color }}>
+        <motion.div className="order">
+          <motion.button
+            whileTap={{ scale: [1, 0.8, 2, 1] }}
+            className="order-btn"
+            style={{ backgroundColor: active.color }}
+            onClick={addItemToCart}
+          >
             order now
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </motion.div>
     </Layout>
   );
