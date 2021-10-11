@@ -2,8 +2,10 @@
 @use '../constants/spaces' as *;
 @use '../constants/colors' as *;
 .navbar {
-  @include shadow(0.2);
-  // background-color: $gray-100;
+  @include shadow(0.8);
+  background-color: $gray-100;
+  position: fixed;
+  width: 100%;
   .inner-navbar {
     @include flex-bw;
     padding: $md;

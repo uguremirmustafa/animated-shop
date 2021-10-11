@@ -2,6 +2,7 @@
 @use '../constants/spaces' as *;
 .container {
   padding: $md;
+  padding-top: 4.5rem;
   // 576px window width and more
   @include sm {
     // padding: 0 ;

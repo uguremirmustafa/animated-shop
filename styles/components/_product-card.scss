@@ -4,6 +4,7 @@
 
 .product-card {
   border-radius: $xs;
+  // background: ;
   padding: $md;
   @include md {
     padding: $lg;
@@ -119,19 +120,10 @@
   .images-wrapper {
     width: 100%;
     overflow: hidden;
-  }
-  .images {
-    display: flex;
-  }
-  .img-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 500px;
-    height: 200px;
     @include shadow(3);
-    border-radius: $xs;
+  }
+  .image-wrapper {
     overflow: hidden;
-    transition: transform ease-in-out 0.4s;
     z-index: 1;
   }
 
@@ -148,6 +140,9 @@
     }
   }
   .btn {
+    font-family: 'Righteous';
+    font-size: 1rem;
+    letter-spacing: 0.9px;
     display: block;
     margin: 0 auto $md;
     cursor: pointer;

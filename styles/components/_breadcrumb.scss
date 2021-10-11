@@ -1,0 +1,21 @@
+@use '../constants/spaces' as *;
+.breadcrumb {
+  font-family: 'Righteous', serif;
+  display: flex;
+  font-size: 18px;
+  text-transform: lowercase;
+  margin-top: $md;
+  margin-bottom: $xl;
+  div {
+    margin-left: 0.5rem;
+    a {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  div:first-of-type {
+    margin-left: 0;
+  }
+}

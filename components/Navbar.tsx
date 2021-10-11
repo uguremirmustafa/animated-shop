@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Cart from './svgs/cart';
 interface Props {}
 
 const Navbar = ({}: Props) => {
@@ -8,13 +9,15 @@ const Navbar = ({}: Props) => {
       <div className="inner-navbar">
         <div className="left">
           <span className="logo">
-            <Link href="/">Animated Shop</Link>
+            <Link href="/">FastBike</Link>
           </span>
         </div>
         <div className="right">
           <ul className="links">
             <li>
-              <Link href="/cart">Cart</Link>
+              <Link href="/cart" passHref>
+                <Cart size={18} />
+              </Link>
             </li>
           </ul>
         </div>

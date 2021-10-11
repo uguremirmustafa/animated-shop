@@ -1,0 +1,142 @@
+@use '../constants/spaces' as *;
+@use '../constants/colors' as *;
+@use '../constants/mixins' as *;
+.product {
+  position: relative;
+  font-family: 'Righteous', serif;
+  padding-bottom: 4rem;
+  .top {
+    margin: $lg 0;
+    display: grid;
+    grid-template-columns: 1fr 6rem;
+    .title {
+      font-size: 1.5rem;
+    }
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  .mid {
+    @include flex-bw;
+    align-items: flex-end;
+    .price {
+      width: max-content;
+      .old {
+        font-size: 14px;
+        position: relative;
+        &:after {
+          position: absolute;
+          top: 40%;
+          left: 3px;
+          content: '';
+          background-color: $gray-200;
+          height: 2px;
+          width: 2.5rem;
+          transform: rotate(-15deg);
+          border-radius: $xs;
+        }
+      }
+
+      .current {
+        font-size: $lg;
+      }
+    }
+    .stickers {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: $xs;
+      div {
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        gap: $xs;
+      }
+    }
+  }
+  .lower-mid {
+    margin: $lg 0;
+    @include flex-bw;
+    align-items: flex-start;
+    .sizes {
+      width: max-content;
+      .options {
+        margin-top: $sm;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: $sm;
+        .size {
+          display: block;
+          font-size: 0.7rem;
+          font-family: 'Righteous', sans-serif;
+          border: 2px solid $gray-900;
+          border-radius: $xs;
+          width: $xl;
+          padding: $xs;
+          text-align: center;
+          background-color: white;
+        }
+      }
+    }
+    .colors {
+      width: max-content;
+      text-align: right;
+      .options {
+        margin-top: $sm;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: $sm;
+        .color {
+          border-radius: $xs;
+          width: $md;
+          height: $md;
+        }
+      }
+    }
+  }
+  .details {
+    margin-top: $lg;
+    .text {
+      margin-top: $sm;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      line-height: 1.3rem;
+    }
+  }
+  .order {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    height: 4rem;
+    background-color: $gray-200;
+    box-shadow: 0 -1px 1px hsl(0deg 0% 0% / 0.075), 0 -2px 2px hsl(0deg 0% 0% / 0.075),
+      0 -4px 4px hsl(0deg 0% 0% / 0.075), 0 -8px 4px hsl(0deg 0% 0% / 0.075),
+      0 -16px 16px hsl(0deg 0% 0% / 0.075);
+    .order-btn {
+      font-family: 'Righteous', sans;
+      font-size: 18px;
+      padding: $sm $lg;
+      border-width: 2px;
+      border-style: solid;
+      border-radius: $sm;
+      border-color: $gray-100;
+      color: $gray-100;
+      @include shadow(2);
+    }
+  }
+}
+.divider {
+  margin: $xs 0;
+  background-color: $gray-200;
+  height: 3px;
+  width: 100%;
+  border-radius: $sm;
+}

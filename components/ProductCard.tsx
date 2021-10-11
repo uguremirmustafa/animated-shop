@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Bike } from '../pages';
+import { Bike } from '../lib/data';
 import { LightenDarkenColor } from '../utils/lightenDarkenColor';
-import { useSwipeable } from 'react-swipeable';
+import ImageSlider from './ImageSlider';
 interface Props {
   bike: Bike;
 }
 
 const ProductCard = ({ bike }: Props) => {
-  const [active, setActive] = useState(bike.variants[2]);
+  const [active, setActive] = useState(bike.variants[0]);
   const [loaded, setLoaded] = useState(false);
+  const [firstLoad, setFirstLoad] = useState(true);
 
+  useEffect(() => {
+    setFirstLoad(false);
+  }, [active.index]);
   useEffect(() => {
     setLoaded(true);
   }, []);
@@ -23,28 +26,17 @@ const ProductCard = ({ bike }: Props) => {
       : `${shadow}px ${shadow}px ${LightenDarkenColor(active.color, 20)}`,
     color: LightenDarkenColor(active.color, 300),
   });
-  const toRight = () => {
-    if (active.index < bike.variants.length - 1) {
-      setActive(bike.variants[active.index + 1]);
-    }
-  };
-  const toLeft = () => {
-    if (active.index > 0) {
-      setActive(bike.variants[active.index - 1]);
-    }
-  };
-  const handlers = useSwipeable({
-    onSwiped: ({ dir }) => {
-      if (dir === 'Right') {
-        toLeft();
-      }
-      if (dir === 'Left') {
-        toRight();
-      }
-    },
-  });
+
   return (
-    <div className="product-card" style={{ backgroundColor: LightenDarkenColor(active.color, 10) }}>
+    <div
+      className="product-card"
+      style={{
+        background: `linear-gradient(270deg, ${LightenDarkenColor(
+          active.color,
+          10
+        )}, ${LightenDarkenColor(active.color, 70)})`,
+      }}
+    >
       <motion.div
         animate={{
           x: [50, -100, 150, 200, -60],
@@ -73,54 +65,8 @@ const ProductCard = ({ bike }: Props) => {
           {bike.model}
         </p>
       </div>
-      <AnimatePresence exitBeforeEnter>
-        <div className="images-wrapper">
-          <motion.div
-            {...handlers}
-            style={{
-              position: 'relative',
-              display: 'flex',
-              width: `${bike.variants.length * 100}%`,
-            }}
-            animate={{
-              left: `-${active.index * 100}%`,
-              transition: {
-                type: 'spring',
-              },
-            }}
-          >
-            {bike.variants.map((item) => (
-              <motion.div
-                key={item.index}
-                initial={{ opacity: 0.8, scale: 0.5 }}
-                animate={
-                  active.index === item.index
-                    ? {
-                        x: 0,
-                        opacity: 1,
-                        scale: 1,
-                        transition: { duration: 0.2, ease: 'easeInOut' },
-                      }
-                    : { opacity: 0 }
-                }
-                exit={{ x: 300, opacity: 0, transition: { duration: 0.3 } }}
-                className="img-wrapper"
-              >
-                <Image
-                  src={item.src}
-                  priority={true}
-                  layout="fill"
-                  objectFit="cover"
-                  alt={bike.model}
-                  onLoad={() => {
-                    setLoaded(true);
-                  }}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </AnimatePresence>
+      <ImageSlider variants={bike.variants} active={active} setActive={setActive} />
+
       <div className="mid">
         <div className="colors" style={textStyle(false, 0)}>
           colors

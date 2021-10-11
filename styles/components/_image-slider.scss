@@ -1,0 +1,18 @@
+@use '../constants/spaces' as *;
+.images-wrapper {
+  width: 100%;
+  overflow: hidden;
+  border-radius: $xs;
+  .images {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      border-radius: $xs;
+    }
+  }
+}
