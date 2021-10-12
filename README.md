@@ -48,7 +48,6 @@
     <a href="https://github.com/uguremirmustafa/animated-shop/issues">Request Feature</a>
   </p>
 </p>
-<a href="https://github.com/uguremirmustafa/express-graphql-jwt-auth">CLIENT CODE WITH REACT IS HERE</a>
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
