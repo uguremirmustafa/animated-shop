@@ -10,9 +10,11 @@
   left: 20px;
   right: 20px;
   background-color: $gray-100;
+  @include shadow(3);
   .title {
     font-family: 'Righteous', sans-serif;
     padding: $md;
+    @include shadow(0.4);
     @include flex-bw;
     h3 {
       color: white;
@@ -27,6 +29,7 @@
   }
   .content {
     padding: $md;
+    padding-top: $lg;
     .message {
       margin-bottom: $md;
     }

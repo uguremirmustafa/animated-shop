@@ -30,9 +30,9 @@
       font-size: 0.8rem;
       &__left-column {
         display: flex;
-        // flex-direction: column;
         align-items: center;
         gap: $sm;
+        text-decoration: underline;
         .item__image-wrapper {
           border-radius: $xs;
           overflow: hidden;

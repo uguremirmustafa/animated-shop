@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import Cart from './svgs/cart';
 import { useCart } from 'react-use-cart';
+import { motion } from 'framer-motion';
+
 interface Props {}
 
 const Navbar = ({}: Props) => {
@@ -18,10 +20,10 @@ const Navbar = ({}: Props) => {
           <ul className="links">
             <li>
               <Link href="/cart" passHref>
-                <button className="cart-btn">
+                <motion.button className="cart-btn" whileTap={{ scale: [1, 0.8, 2, 1] }}>
                   {totalItems > 0 && <span>{totalItems}</span>}
                   <Cart size={18} />
-                </button>
+                </motion.button>
               </Link>
             </li>
           </ul>

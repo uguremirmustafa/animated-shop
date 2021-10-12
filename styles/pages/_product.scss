@@ -92,9 +92,15 @@
         gap: $sm;
         .color {
           border-radius: $xs;
-          width: $md;
-          height: $md;
           cursor: pointer;
+          border-width: 3px;
+          border-style: double;
+          .inner {
+            width: $md;
+            height: $md;
+            margin: 2px;
+            border-radius: 2px;
+          }
         }
       }
     }
@@ -133,22 +139,4 @@
       @include shadow(2);
     }
   }
-}
-.Modal {
-  position: absolute;
-  top: 30%;
-  left: 40px;
-  right: 40px;
-  padding: $md;
-  background-color: $gray-100;
-}
-
-.Overlay {
-  z-index: 30;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba($gray-900, 0.8);
 }

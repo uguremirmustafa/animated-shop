@@ -46,7 +46,7 @@ const ProductPage = ({ bike }: Props) => {
       return;
     }
     addItem({
-      id: `${bike.id.toString()}-${active.index}-${active.color}-${active.src}`,
+      id: `${bike.id.toString()}-${active.index}-${active.color}-${active.src}-${selectedSize}`,
       price: bike.price.current,
       size: selectedSize,
       color: active.color,
@@ -147,9 +147,13 @@ const ProductPage = ({ bike }: Props) => {
                     whileTap={{ scale: [1, 0.8, 2, 1] }}
                     key={index}
                     className="color"
-                    style={{ backgroundColor: `${variant.color}`, border: `2px solid gray` }}
+                    style={{
+                      borderColor: active.color !== variant.color ? 'transparent' : variant.color,
+                    }}
                     onClick={() => setActive(bike.variants[index])}
-                  />
+                  >
+                    <div className="inner" style={{ backgroundColor: `${variant.color}` }}></div>
+                  </motion.div>
                 );
               })}
             </div>

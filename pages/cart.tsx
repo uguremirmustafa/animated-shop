@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import ArrowDown from '../components/svgs/arrow-down';
 import ArrowUp from '../components/svgs/arrow-up';
-import { motion, AnimateSharedLayout } from 'framer-motion';
+import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion';
 import Trash from '../components/svgs/trash';
 import { LightenDarkenColor } from '../utils/lightenDarkenColor';
 interface Props {}
@@ -30,9 +30,9 @@ const Cart = ({}: Props) => {
       <div className="cart">
         <h2 className="cart__title">
           cart
-          <button className="" onClick={() => router.back()}>
+          <motion.button whileTap={{ scale: [1, 0.8, 2, 1] }} onClick={() => router.back()}>
             👈 back
-          </button>
+          </motion.button>
         </h2>
         <AnimateSharedLayout>
           <motion.div className="cart__items">
@@ -92,6 +92,7 @@ const Cart = ({}: Props) => {
                   >
                     <div className="item__expanded-content">
                       <div className="size">{item.size}</div>
+
                       <motion.div
                         className="size"
                         animate={{
@@ -101,9 +102,13 @@ const Cart = ({}: Props) => {
                       >
                         {item.color}
                       </motion.div>
-                      <button className="remove" onClick={() => removeItem(item.id)}>
+                      <motion.button
+                        whileTap={{ scale: [1, 0.8, 2, 1] }}
+                        className="remove"
+                        onClick={() => removeItem(item.id)}
+                      >
                         <Trash size={12} /> remove
-                      </button>
+                      </motion.button>
                     </div>
                   </motion.div>
                 )}
@@ -114,7 +119,14 @@ const Cart = ({}: Props) => {
       </div>
       <div className="total">
         <span>{totalItems} items</span>
-        <span>total: ${cartTotal}</span>
+        <AnimatePresence key={cartTotal}>
+          <motion.span
+            initial={{ y: 0, opacity: 0.7 }}
+            animate={{ y: [10, -10, 0], opacity: 1, transition: { duration: 0.3 } }}
+          >
+            total: ${cartTotal}
+          </motion.span>
+        </AnimatePresence>
       </div>
     </Layout>
   );
