@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useCart } from 'react-use-cart';
 import Layout from '../layouts/Layout';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Image from 'next/image';
-import ArrowDown from '../components/svgs/arrow-down';
-import ArrowUp from '../components/svgs/arrow-up';
 import { motion, AnimateSharedLayout, AnimatePresence } from 'framer-motion';
 import Trash from '../components/svgs/trash';
 import { LightenDarkenColor } from '../utils/lightenDarkenColor';
@@ -13,7 +12,8 @@ interface Props {}
 const Cart = ({}: Props) => {
   const router = useRouter();
   const [expanded, setExpanded] = useState('');
-  const { items, updateItemQuantity, removeItem, cartTotal, totalItems } = useCart();
+  const { items, updateItemQuantity, removeItem, cartTotal, totalItems, emptyCart, isEmpty } =
+    useCart();
   const expand = (id: string) => {
     if (expanded === '') {
       setExpanded(id);
@@ -25,12 +25,27 @@ const Cart = ({}: Props) => {
       setExpanded(id);
     }
   };
+  const tapAnimation = { scale: [1, 0.8, 2, 1] };
+
+  if (isEmpty) {
+    return (
+      <Layout>
+        <div className="empty">
+          <p>Cart is empty!</p>
+          <Link href="/" passHref>
+            <motion.button whileTap={tapAnimation}>go and buy some bikes 👉</motion.button>
+          </Link>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <div className="cart">
         <h2 className="cart__title">
           cart
-          <motion.button whileTap={{ scale: [1, 0.8, 2, 1] }} onClick={() => router.back()}>
+          <motion.button whileTap={tapAnimation} onClick={() => router.back()}>
             👈 back
           </motion.button>
         </h2>
@@ -38,7 +53,7 @@ const Cart = ({}: Props) => {
           <motion.div className="cart__items">
             {items.map((item) => (
               <motion.div layout key={item.id} className="item">
-                <div className="item__left-column">
+                <div className="item__left-column" onClick={() => expand(item.id)}>
                   <div className="item__image-wrapper">
                     <Image
                       src={item.img}
@@ -47,10 +62,11 @@ const Cart = ({}: Props) => {
                       alt="bike image for the product"
                     />
                   </div>
-                  <h3 onClick={() => expand(item.id)}>{item.title}</h3>
+                  <h3>{item.title}</h3>
                 </div>
                 <div className="item__buttons">
-                  <button
+                  <motion.button
+                    whileTap={tapAnimation}
                     className="increase"
                     disabled={item.quantity === 10}
                     onClick={() => {
@@ -60,9 +76,10 @@ const Cart = ({}: Props) => {
                       }
                     }}
                   >
-                    <ArrowUp size={12} />
-                  </button>
-                  <button
+                    +
+                  </motion.button>
+                  <motion.button
+                    whileTap={tapAnimation}
                     disabled={item.quantity === 1}
                     className="decrease"
                     onClick={() => {
@@ -72,8 +89,8 @@ const Cart = ({}: Props) => {
                       }
                     }}
                   >
-                    <ArrowDown size={12} />
-                  </button>
+                    -
+                  </motion.button>
                 </div>
                 <div className="item__price">
                   {item.price} x {item.quantity} = {item.itemTotal}
@@ -116,17 +133,21 @@ const Cart = ({}: Props) => {
             ))}
           </motion.div>
         </AnimateSharedLayout>
-      </div>
-      <div className="total">
-        <span>{totalItems} items</span>
-        <AnimatePresence key={cartTotal}>
-          <motion.span
-            initial={{ y: 0, opacity: 0.7 }}
-            animate={{ y: [10, -10, 0], opacity: 1, transition: { duration: 0.3 } }}
-          >
-            total: ${cartTotal}
-          </motion.span>
-        </AnimatePresence>
+        <div className="cart__total">
+          <motion.button className="cart__total__empty" onClick={() => emptyCart()}>
+            <Trash size={16} />
+            remove all items
+          </motion.button>
+          <span>{totalItems} items</span>
+          <AnimatePresence key={cartTotal}>
+            <motion.span
+              initial={{ y: 0, opacity: 0.7 }}
+              animate={{ y: [10, -10, 0], opacity: 1, transition: { duration: 0.3 } }}
+            >
+              total: ${cartTotal}
+            </motion.span>
+          </AnimatePresence>
+        </div>
       </div>
     </Layout>
   );

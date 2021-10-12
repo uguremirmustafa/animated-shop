@@ -9,6 +9,8 @@
   top: 30%;
   left: 20px;
   right: 20px;
+  max-width: 600px;
+  margin: auto;
   background-color: $gray-100;
   @include shadow(3);
   .title {
