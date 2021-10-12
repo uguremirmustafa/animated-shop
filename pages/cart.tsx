@@ -136,7 +136,7 @@ const Cart = ({}: Props) => {
         <div className="cart__total">
           <motion.button className="cart__total__empty" onClick={() => emptyCart()}>
             <Trash size={16} />
-            remove all items
+            remove all
           </motion.button>
           <span>{totalItems} items</span>
           <AnimatePresence key={cartTotal}>
