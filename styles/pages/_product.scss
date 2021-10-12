@@ -1,33 +1,100 @@
 @use '../constants/spaces' as *;
 @use '../constants/colors' as *;
 @use '../constants/mixins' as *;
+
 .product {
   position: relative;
   font-family: 'Righteous', serif;
   padding-bottom: 4rem;
-  .top {
-    margin: $lg 0;
+  display: grid;
+  gap: $md;
+  @include sm {
+    grid-template-columns: 240px 1fr;
+    gap: $lg;
+  }
+  @include rwd(620) {
+    grid-template-columns: 300px 1fr;
+    gap: $lg;
+  }
+  @include rwd(700) {
+    grid-template-columns: 360px 1fr;
+    gap: $lg;
+  }
+  @include md {
+    grid-template-columns: 480px 1fr;
+    gap: $lg;
+  }
+  @include lg {
+    grid-template-columns: 520px 1fr;
+  }
+  &__breadcrumb {
+    @include sm {
+      grid-column: 1 / 3;
+    }
+  }
+  &__image-slider {
+    @include sm {
+      grid-row: 2 / 5;
+    }
+    .images-wrapper {
+      .images {
+        .image-wrapper {
+          @include rwd(400) {
+            height: 240px;
+          }
+          @include rwd(480) {
+            height: 260px;
+          }
+          @include rwd(530) {
+            height: 290px;
+          }
+          @include sm {
+            height: 200px;
+          }
+          @include md {
+            height: 340px;
+          }
+        }
+      }
+    }
+  }
+  &__header {
     display: grid;
     grid-template-columns: 1fr 6rem;
-    .title {
+    align-items: flex-start;
+    &__title {
       font-size: 1.5rem;
+      @include sm {
+        font-size: 1.8rem;
+      }
+      @include md {
+        font-size: 2.4rem;
+      }
     }
-    .actions {
+    &__actions {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 1rem;
+      gap: $md;
     }
   }
-
-  .mid {
+  &__info {
     @include flex-bw;
     align-items: flex-end;
-    .price {
+    &__price {
       width: max-content;
-      .old {
-        font-size: 14px;
+      &--old {
         position: relative;
+        font-size: 14px;
+        @include sm {
+          font-size: 1rem;
+        }
+        @include md {
+          font-size: 1.3rem;
+        }
+        @include lg {
+          font-size: 1.7rem;
+        }
         &:after {
           position: absolute;
           top: 40%;
@@ -36,41 +103,70 @@
           background-color: $gray-200;
           height: 2px;
           width: 2.5rem;
+          @include sm {
+            width: 3.5rem;
+          }
+          @include md {
+            width: 4.5rem;
+          }
+          @include lg {
+            width: 5rem;
+          }
           transform: rotate(-15deg);
           border-radius: $xs;
         }
       }
-      .current {
-        font-size: $lg;
+      &--current {
+        font-size: 1.5rem;
+        @include sm {
+          font-size: 2rem;
+        }
+        @include md {
+          font-size: 2.3rem;
+        }
+        @include lg {
+          font-size: 2.8rem;
+        }
       }
     }
-    .stickers {
+    &__stickers {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       gap: $xs;
       div {
         font-size: 10px;
+        @include sm {
+          font-size: 11px;
+        }
+        @include md {
+          font-size: 12px;
+        }
+        @include lg {
+          font-size: 14px;
+        }
         display: flex;
         align-items: center;
         gap: $xs;
       }
     }
   }
-  .lower-mid {
-    margin: $lg 0;
-    @include flex-bw;
+  &__variants {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
     align-items: flex-start;
-    .sizes {
+    gap: $md;
+    &__size {
       width: max-content;
-      .options {
+      &__options {
         margin-top: $sm;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: $sm;
-        .size {
+        button {
           display: block;
-          font-size: 0.7rem;
+          font-size: 12px;
           font-family: 'Righteous', sans-serif;
           border: 2px solid $gray-900;
           border-radius: $xs;
@@ -79,18 +175,25 @@
           text-align: center;
           background-color: white;
           cursor: pointer;
+          @include sm {
+            font-size: 13px;
+          }
+          @include md {
+            font-size: 15px;
+          }
         }
       }
     }
-    .colors {
+    &__color {
+      justify-self: right;
       width: max-content;
       text-align: right;
-      .options {
+      &__options {
         margin-top: $sm;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         gap: $sm;
-        .color {
+        div {
           border-radius: $xs;
           cursor: pointer;
           border-width: 3px;
@@ -100,22 +203,22 @@
             height: $md;
             margin: 2px;
             border-radius: 2px;
+            @include sm {
+              width: 1.125rem;
+              height: 1.125rem;
+              margin: 3px;
+            }
+            @include md {
+              width: 1.25rem;
+              height: 1.25rem;
+              margin: 4px;
+            }
           }
         }
       }
     }
   }
-  .details {
-    margin-top: $lg;
-    .text {
-      margin-top: $sm;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 300;
-      font-size: 0.9rem;
-      line-height: 1.3rem;
-    }
-  }
-  .order {
+  &__order {
     position: fixed;
     width: 100%;
     bottom: 0;
@@ -127,7 +230,15 @@
     box-shadow: 0 -1px 1px hsl(0deg 0% 0% / 0.075), 0 -2px 2px hsl(0deg 0% 0% / 0.075),
       0 -4px 4px hsl(0deg 0% 0% / 0.075), 0 -8px 4px hsl(0deg 0% 0% / 0.075),
       0 -16px 16px hsl(0deg 0% 0% / 0.075);
-    .order-btn {
+    @include md {
+      position: relative;
+      background-color: transparent;
+      box-shadow: none;
+      height: auto;
+      grid-column: 1 / 2;
+      justify-content: left;
+    }
+    &__btn {
       font-family: 'Righteous', sans;
       font-size: 18px;
       padding: $sm $lg;
@@ -137,6 +248,16 @@
       border-color: $gray-100;
       color: $gray-100;
       @include shadow(2);
+    }
+  }
+  &__details {
+    margin-top: $lg;
+    &__description {
+      margin-top: $sm;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      font-size: 0.9rem;
+      line-height: 1.3rem;
     }
   }
 }

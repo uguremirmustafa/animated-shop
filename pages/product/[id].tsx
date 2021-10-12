@@ -72,30 +72,34 @@ const ProductPage = ({ bike }: Props) => {
         setModalIsOpen={setModalIsOpen}
       />
       <motion.div className="product">
-        <BreadCrumb items={breadCrumbData} seperator="/" />
-        <ImageSlider variants={bike.variants} active={active} setActive={setActive} />
-        <div className="top">
-          <h2 className="title">
+        <div className="product__breadcrumb">
+          <BreadCrumb items={breadCrumbData} seperator="/" />
+        </div>
+        <div className="product__image-slider">
+          <ImageSlider variants={bike.variants} active={active} setActive={setActive} />
+        </div>
+        <div className="product__header">
+          <h2 className="product__header__title">
             {bike.brand} / {bike.model}
           </h2>
-          <div className="actions">
+          <div className="product__header__actions">
             <Share size={19} color={active.color} />
             <Heart size={22} color={active.color} />
           </div>
         </div>
-        <div className="mid">
-          <div className="price">
-            <div className="old">
+        <div className="product__info">
+          <div className="product__info__price">
+            <div className="product__info__price--old">
               {bike.price.currency}
               {bike.price.old}
             </div>
             <Divider color={active.color} />
-            <div className="current">
+            <div className="product__info__price--current">
               {bike.price.currency}
               {bike.price.current}
             </div>
           </div>
-          <div className="stickers">
+          <div className="product__info__stickers">
             <div>
               free shipping
               <Truck size={17} color={active.color} />
@@ -106,12 +110,11 @@ const ProductPage = ({ bike }: Props) => {
             </div>
           </div>
         </div>
-        <div className="divider-slim"></div>
-        <div className="lower-mid">
-          <div className="sizes">
+        <div className="product__variants">
+          <div className="product__variants__size">
             sizes
             <Divider color={active.color} />
-            <div className="options">
+            <div className="product__variants__size__options">
               {active.sizes.map((size, index) => {
                 return (
                   <motion.button
@@ -120,7 +123,6 @@ const ProductPage = ({ bike }: Props) => {
                       y: -2,
                     }}
                     key={index}
-                    className="size"
                     onClick={() => setSelectedSize(size)}
                     style={
                       size === selectedSize
@@ -137,16 +139,15 @@ const ProductPage = ({ bike }: Props) => {
               })}
             </div>
           </div>
-          <div className="colors">
+          <div className="product__variants__color">
             colors
             <Divider color={active.color} />
-            <div className="options">
+            <div className="product__variants__color__options">
               {bike.variants.map((variant, index) => {
                 return (
                   <motion.div
                     whileTap={{ scale: [1, 0.8, 2, 1] }}
                     key={index}
-                    className="color"
                     style={{
                       borderColor: active.color !== variant.color ? 'transparent' : variant.color,
                     }}
@@ -158,22 +159,22 @@ const ProductPage = ({ bike }: Props) => {
               })}
             </div>
           </div>
+          <motion.div className="product__order">
+            <motion.button
+              whileTap={{ scale: [1, 0.8, 2, 1] }}
+              className="product__order__btn"
+              style={{ backgroundColor: active.color }}
+              onClick={addItemToCart}
+            >
+              order now
+            </motion.button>
+          </motion.div>
         </div>
-        <div className="details">
+        <div className="product__details">
           details
           <Divider color={active.color} />
-          <div className="text">{bike.desc}</div>
+          <div className="product__details__description">{bike.desc}</div>
         </div>
-        <motion.div className="order">
-          <motion.button
-            whileTap={{ scale: [1, 0.8, 2, 1] }}
-            className="order-btn"
-            style={{ backgroundColor: active.color }}
-            onClick={addItemToCart}
-          >
-            order now
-          </motion.button>
-        </motion.div>
       </motion.div>
     </Layout>
   );

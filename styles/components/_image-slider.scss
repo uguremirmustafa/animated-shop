@@ -1,4 +1,5 @@
 @use '../constants/spaces' as *;
+@use '../constants/mixins' as *;
 .images-wrapper {
   width: 100%;
   overflow: hidden;
